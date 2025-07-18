@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ml project</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	{% include '_head.html' %}
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/main.css') }}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+				<form class="login100-form validate-form flex-sb flex-w" action="/api/users/signin" method="post">
+					<span class="login100-form-title p-b-32">
+						Вход
+					</span>
+
+					<span class="txt1 p-b-11">
+						Логин
+					</span>
+					<div class="wrap-input100 validate-input m-b-36" data-validate = "Логин не тот">
+						<input class="input100" type="email" name="username" id='email_user'>
+						<span class="focus-input100"></span>
+					</div>
+					
+					<span class="txt1 p-b-11">
+						Пароль
+					</span>
+					<div class="wrap-input100 validate-input m-b-12" data-validate = "Пароль не тот">
+						<span class="btn-show-pass">
+							<i class="fa fa-eye"></i>
+						</span>
+						<input class="input100" type="password" name="password" id='pass_user'>
+						<span class="focus-input100"></span>
+					</div>
+					
+					<div class="flex-sb-m w-full p-b-48">
+						
+					</div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" id='login' type="submit">
+							Войти
+						</button>
+						<a style="margin: 15px 0px 0px 90px;" href="/registration">Нет аккаунта? Создать</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>	
+<!--===============================================================================================-->
+	{% include '_footer.html' %}
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', path='/js/signin.js') }}"></script>
+
+</body>
+</html>

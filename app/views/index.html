@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <title>ML project lk</title>
+        {% include '_head.html' %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/style.css') }}">
+    </head>
+    <body>
+    <div class="container-fluid">
+      <input type="hidden" id='options' user_id="{{user.id}}">
+      {% if user.is_admin %}
+      <div class='main'>
+        <div class='row'>
+          <div class='col caption'><b>{{user.name}}</b></div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Статус: админ</div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>
+            <form method="POST" action="/api/users/logout">
+              <button type="submit" class="btn btn-primary">Выйти из аккаунта</button>
+            </form>
+          </div>
+        </div>
+        <hr>
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-12 col-sm-12'>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">айди</th>
+                  <th scope="col">Логин</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Статус</th>
+                  <th scope="col">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for elem in users %}
+              <tr>
+                <td>{{elem.id}}</td>
+                <td>{{elem.email}}</td>
+                <td>{{elem.name}}</td>
+                <td>{% if elem.is_admin %}Админ{% else %}Пользователь{% endif %}</td>
+                <td>{% if elem.email != user.email %}<button type="button" data-bs-toggle="modal" id='del_{{elem.id}}' name="{{elem.name}}" data-bs-target="#deletemodal" class="delete_user btn btn-danger">Удалить аккаунт</button>{% endif %}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+        <hr>
+      </div>
+      {% else %}
+      <div class='main'>
+        <div class='row'>
+          <div class='col-lg-12 col-sm-12 caption'><b>{{user.name}}</b></div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Баланс: {% if balance %}{{balance[0]['value']}} {% else %} 0 {% endif %}</div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Статус: пользователь</div> 
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Логин: {{user.email}}</div>
+        </div>
+        <hr>
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>
+            Данный сервис предназначен для определения наличия автомобиля на картинке. <br/>Для предсказания необходимо, чтоб баланс был выше 500 единиц средств.
+          </div>
+        </div>
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-6 col-sm-12'>
+            <div class='icon' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class='text_icon'>Пополнить баланс</div>
+            </div>
+          </div>
+          <div class='col-lg-6 col-sm-12'>
+            <a href="/predictions">
+                <div class='icon'>
+                    <div class='text_icon'>Предсказания</div>
+                </div>
+            </a>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-lg-6 col-sm-12'>
+            <a href="/transactions">
+            <div class='icon'>
+                <div class='text_icon'>История транзакций</div>
+            </div>
+            </a>
+          </div>
+          <div class='col-lg-6 col-sm-12'>
+            <div style="margin: 0 auto; width: 500px;">
+              <form method="POST" action="/api/users/logout">
+                  <button class='btn_logout'>Выход из аккаунта</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+      {% endif %}
+    </body>
+    {% if user.is_admin %}
+    <div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Удаление пользователя</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class='row'>
+                <div class='col-lg-12 col-sm-12 alert alert-primary'>
+                    Вы уверены, что хотите удалить
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-alert="modal" id="delete_user">Удалить</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Пополнение баланса</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class='row'>
+                <div class='col-lg-12 col-sm-12 alert alert-primary main_body'>
+                    Введите количество средств для пополнения
+                    <input id="tugrik"/>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-alert="modal" id="add_balance">Пополнить</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+<!--===============================================================================================-->
+  {% include '_footer.html' %}
+<!--===============================================================================================-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/0857309370.js" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', path='/js/index.js') }}"></script>
+</html>

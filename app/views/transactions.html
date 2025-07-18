@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <title>ML project balance</title>
+        {% include '_head.html' %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/css/style.css') }}">
+    </head>
+    <body>
+    <div class="container-fluid">
+      <div class='main'>
+        <div class='row'>
+          <div class='col-lg-12 col-sm-12 caption'><b>{{user.name}}</b></div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Баланс: {% if balance %}{{balance[0]['value']}} {% else %} 0 {% endif %}</div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Статус: пользователь</div> 
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Логин: {{user.email}}</div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'><button type="button" class="btn btn-primary" onclick="window.history.back()">Назад</button></div>
+        </div>
+        <hr>
+        <div class='row'>
+          <div class='col-lg-12 col-sm-12'>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Тип</th>
+                  <th scope="col">Сумма</th>
+                  <th scope="col">Дата</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for elem in transactions %}
+              <tr>
+                <td>{{elem.id}}</td>
+                <td>{{elem.type}}</td>
+                <td>{{elem.cost}}</td>
+                <td>{{elem.created_at.strftime('%d.%m.%Y')}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+
+        <hr>
+      </div>
+    </div>
+  </body>
+<!--===============================================================================================-->
+{% include '_footer.html' %}
+<!--===============================================================================================-->
+</body>
+</html>

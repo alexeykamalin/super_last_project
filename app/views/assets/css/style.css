@@ -1,0 +1,235 @@
+body {
+	background-image: url(../images/back.jpg);
+}
+a {
+	text-decoration: none;
+}
+table {
+	font-size: 40px;
+}
+
+.main{
+	margin-top: 100px;
+	border-radius: 50px;
+/*	background-color: white;*/
+	padding: 50px;
+}
+.modal-body{
+	font-size: 20px;
+}
+.card-text{
+	font-size: 20px;
+}
+.card-title{
+	font-size: 20px;
+}
+.card-header{
+	font-size: 30px;
+}
+.ball{
+	font-size: 40px;
+}
+.icon, .btn_logout{
+	background-color: white;
+	font-size: 200px;
+	text-align: center;
+	width: 500px;
+	height: 100px;
+	margin: 0 auto;
+	border: 1px grey solid;
+	border-radius: 10px;
+	cursor:pointer;
+	margin-bottom: 30px;
+}
+
+a .text_icon{
+	color: black;
+}
+a .fa-signs-post{
+	color: blue;
+}
+a .fa-list-check{
+	color: red;
+}
+a .fa-users{
+	color: green;
+}
+a .fa-clock{
+	color: black;
+}
+.icon:hover, .btn_logout:hover{
+	box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+}
+.text_icon, .btn_logout{
+	font-size: 50px;
+}
+.btn_logout{
+	margin: auto;
+}
+.maincontainer {
+	min-height: 100%;
+
+}
+.subsubcaption{
+	font-size: 15px;
+	margin-top: 10px;
+}
+.modal-body{
+	text-align: center;
+}
+.content {
+	background: #fff;
+    /*background: linear-gradient(to top, #57c0d5, #298cd0);*/
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	/*height:100%;*/
+	width:800px;
+	margin: 0 auto; 
+}
+.name_item {
+	font-size: 20px;
+	vertical-align: top;	
+}
+.item {
+	margin-top: 30px;
+	margin-left: 50px;
+	margin-right: 200px;
+}
+.caption {
+	text-align: center;
+	padding-top: 30px;
+	font-size: 50px;
+	margin-bottom: 20px;
+	line-height: 1.5;
+}
+.subcaption1{
+	text-align: center;
+	padding-top: 50px;
+	font-size: 15px;
+	margin-bottom: 50px;
+	line-height: 1.5;	
+}
+.inline {
+	display: inline-block;
+}
+.help-block {
+	font-size: 10px;
+	color:grey;
+	margin-top:0!important;
+}
+.inpt {
+	width:500px!important;
+}
+.control-label {
+	font-size: 18px;
+}
+.mid {
+	text-align: center;
+}
+input[type=submit] {
+	height:50px;
+	font-size: 20px;
+} 
+.g-recaptcha {
+	margin:0 auto;
+	margin-bottom: 50px;
+	width:290px;
+}
+.error {
+	border:2px solid!important;
+}
+hr {
+    border: none;
+    background-color: gray;
+    color: gray; 
+    height: 2px; 
+}
+.soglasie {
+	padding:20px;
+	text-align: justify;
+	border:1px solid;
+	border-color: gray;
+}
+.title {
+	font-size: 20px;
+	text-align: center;
+	font-weight: 600;
+	line-height: 1.5;
+	margin-bottom: 30px;
+}
+.text p{
+	text-indent: 20px;
+}
+.link {
+	color: #08c;
+    text-decoration: none;
+}
+.link:hover, .link:focus {
+    color: #005580;
+    text-decoration: underline;
+    cursor:pointer;
+}
+.link:hover, .link:active {
+    outline: 0;
+}
+.mar {
+	margin-bottom: 20px;
+}
+.foot {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.subcaption{
+	text-align:justify;
+	text-indent: 1.5em;
+	margin-bottom: 20px;
+}
+.main_int{
+	
+	height: 34px;
+    padding: 6px 12px;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.email{
+	text-align: center;
+	color: #08c;
+  	font-size: 20px;
+}
+.input_res{
+	margin-top: 50px;
+	text-align: center;	
+}
+.main_int:focus{
+	border-color: #66afe9;
+	outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+.select1{
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 10px;
+    color: #31708f;
+    background-color: #d9edf7;
+    cursor: pointer;
+    list-style: none;
+}
+.active_sel{
+	margin: 10px 0;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+    background-color: #428bca;
+    cursor: pointer;
+}
