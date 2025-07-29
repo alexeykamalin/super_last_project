@@ -62,7 +62,7 @@ def create_application() -> FastAPI:
     return app
 
 app = create_application()
-init_db(drop_all=True)
+init_db(drop_all=False)
 
 app.mount(
     "/static",
