@@ -1,0 +1,14 @@
+sqlalchemy
+scikit-learn
+pandas
+numpy
+scikit-learn
+postgres
+joblib
+clearml
+wandb
+dvc==3.42.0
+dvc-s3==3.0.1
+matplotlyb
+xgboost
+seaborn
