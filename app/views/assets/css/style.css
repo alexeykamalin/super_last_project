@@ -41,6 +41,15 @@ table {
 	cursor:pointer;
 	margin-bottom: 30px;
 }
+.icon1{
+	margin:0 auto;
+	width: 500px;
+	padding: 50px;
+	border: 2px grey solid;
+	border-radius: 10px;
+	background-color: white;
+
+}
 
 a .text_icon{
 	color: black;
@@ -72,7 +81,6 @@ a .fa-clock{
 }
 .subsubcaption{
 	font-size: 15px;
-	margin-top: 10px;
 }
 .modal-body{
 	text-align: center;
@@ -104,9 +112,8 @@ a .fa-clock{
 }
 .subcaption1{
 	text-align: center;
-	padding-top: 50px;
-	font-size: 15px;
-	margin-bottom: 50px;
+	font-size: 30px;
+	margin-bottom: 20px;
 	line-height: 1.5;	
 }
 .inline {

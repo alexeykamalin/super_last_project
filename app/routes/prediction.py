@@ -26,34 +26,69 @@ async def create_prediction(data: Prediction, session=Depends(get_session)) -> D
     """
     """
     try:
-        balance = BalanceService.getbalance_by_user_id(data.user_id, session)
-        if balance[0].value < 500:
-            return {"result": "false", "message": "no limits"}
-        else:
-            prediction = Prediction(
-                status='in_progress',
-                user_id=data.user_id,
-                image=data.image,
-                result='in_progress'
-            )
-            result = PredictionService.create_prediction(prediction, session)
-            task = RmTask.send_task(data.image, result.id)
-            
-            new_value = balance[0].value - 500
-            
-            new_balance = Balance(
-                value=new_value,
-                user_id=data.user_id,
-            )
-            transaction = Transaction(
-                cost=500,
-                type='out',
-                user_id=data.user_id)
-            TransactionService.create_transaction(transaction, session)
-            BalanceService.updatebalance(new_balance, data.user_id, session)
+        prediction = Prediction(
+            status='in_progress',
+            user_id=data.user_id,
+            a1=data.a1,
+            a2=data.a2,
+            a3=data.a3,
+            g1=data.g1,
+            g2=data.g2,
+            g3=data.g3,
+            i1=data.i1,
+            i2=data.i2,
+            i3=data.i3,
+            ia=data.ia,
+            ig=data.ig,
+            f1=data.f1,
+            f2=data.f2,
+            f3=data.f3,
+            fa=data.fa,
+            fg=data.fg,
+            r1=data.r1,
+            r2=data.r2,
+            r3=data.r3,
+            ra=data.ra,
+            rg=data.rg,
+            pri=data.pri,
+            prm=data.prm,
+            prf=data.prf,
+            prr=data.prr,
+            egkr=data.egkr,
+            result='in_progress'
+        )
+        result = PredictionService.create_prediction(prediction, session)
+        task = RmTask.send_task(data.a1, 
+                                data.a2,
+                                data.a3,
+                                data.g1,
+                                data.g2,
+                                data.g3,
+                                data.i1,
+                                data.i2,
+                                data.i3,
+                                data.ia,
+                                data.ig,
+                                data.f1,
+                                data.f2,
+                                data.f3,
+                                data.fa,
+                                data.fg,
+                                data.r1,
+                                data.r2,
+                                data.r3,
+                                data.ra,
+                                data.rg,
+                                data.pri,
+                                data.prm,
+                                data.prf,
+                                data.prr,
+                                data.egkr,
+                                result.id)
 
-            logger.info(f"New prediction: {data.user_id}, {data.status}, {task}")
-            return {"result": "true"}
+
+        logger.info(f"New prediction: {data.user_id}, {data.status}, {task}")
+        return {"result": "true"}
 
     except Exception as e:
         logger.error(f"Error during add_prediction: {str(e)}")

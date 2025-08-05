@@ -1,7 +1,3 @@
-from transformers import Qwen2VLForConditionalGeneration, AutoTokenizer, AutoProcessor
-from fastapi import HTTPException
-from qwen_vl_utils import process_vision_info
-import torch
 import pika
 import logging
 from services.crud.prediction import updateprediction
@@ -32,68 +28,46 @@ connection = pika.BlockingConnection(connection_params)
 channel = connection.channel()
 queue_name = 'ml_task_queue'
 channel.queue_declare(queue=queue_name)  # Создание очереди (если не существует)
-model = Qwen2VLForConditionalGeneration.from_pretrained(
-    "Qwen/Qwen2-VL-2B-Instruct", torch_dtype="auto", device_map="auto"
-)
-processor = AutoProcessor.from_pretrained("Qwen/Qwen2-VL-2B-Instruct")
+
 # Функция, которая будет вызвана при получении сообщения
 def callback(ch, method, properties, body):
     logger.info("1. Задача получена")
+    res = 123
     try:
-        messages = [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "image": body.decode("utf-8"),
-                    },
-                    {"type": "text", "text": "Describe this image."},
-                ],
-            }
-        ]
-        text = processor.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        image_inputs, video_inputs = process_vision_info(messages)
-        inputs = processor(
-            text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt",
-        )
-        try:
-            logger.info("2. Перемещаем inputs на GPU")
-            inputs = inputs.to("cuda")
-            
-            logger.info("3. Запускаем генерацию...")
-            generated_ids = model.generate(**inputs, max_new_tokens=128)
-            
-            logger.info("4. Генерация завершена")
-        except RuntimeError as e:
-            logger.error(f"Ошибка CUDA: {e}")
-        except Exception as e:
-            logger.error(f"Неожиданная ошибка: {e}")
-        generated_ids_trimmed = [
-            out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-        ]
-        logger.info("6. Генерация завершена")
-        output_text = processor.batch_decode(
-            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-        )
-        logger.info('7. Конец задачи')
         session = next(get_session())
-        res = 'yes' if ' car ' in output_text[0] else 'no'
         prediction = PredictionUpdate(
             status='done',
             id=properties.headers.get('id'),
+            a1=properties.headers.get('a1'),
+            a2=properties.headers.get('a2'),
+            a3=properties.headers.get('a3'),
+            g1=properties.headers.get('g1'),
+            g2=properties.headers.get('g2'),
+            g3=properties.headers.get('g3'),
+            i1=properties.headers.get('i1'),
+            i2=properties.headers.get('i2'),
+            i3=properties.headers.get('i3'),
+            ia=properties.headers.get('ia'),
+            ig=properties.headers.get('ig'),
+            f1=properties.headers.get('f1'),
+            f2=properties.headers.get('f2'),
+            f3=properties.headers.get('f3'),
+            fa=properties.headers.get('fa'),
+            fg=properties.headers.get('fg'),
+            r1=properties.headers.get('r1'),
+            r2=properties.headers.get('r2'),
+            r3=properties.headers.get('r3'),
+            ra=properties.headers.get('ra'),
+            rg=properties.headers.get('rg'),
+            pri=properties.headers.get('pri'),
+            prm=properties.headers.get('prm'),
+            prf=properties.headers.get('prf'),
+            prr=properties.headers.get('prr'),
+            egkr=properties.headers.get('egkr'),
             result=res
         )
         updateprediction(prediction, properties.headers.get('id'), session)
-        
         logger.info('7. Конец задачи %s',properties.headers.get('id'))
-        logger.info('8. Пропертис %s', output_text)
     except Exception as e:
         logger.exception(e)
 

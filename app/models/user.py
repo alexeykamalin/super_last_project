@@ -5,24 +5,14 @@ from datetime import datetime
 import re
 
 class User(SQLModel, table=True):
-    """
-    Класс для представления пользователя в системе.
-    
-    Attributes:
-        id (int): Primary key
-        email (str): users email
-        password (str): paswd hash
-        created_at (datetime): creation time
-        balanse (Balanse): user balanse
-        predictions (List[Prediction]): list of user predictions
-        transactions (List[Transaction]): list of user transactions
-    """
     id: Optional[int] = Field(default=None, primary_key=True)
     email: str = Field(unique=True, index=True, min_length=5, max_length=255)
     password: str = Field(min_length=8)
     name: str = Field(min_length=2)
+    hashed_name: str = Field(min_length=32)
     created_at: datetime = Field(sa_column=Column(DateTime, default=func.now()))
     is_admin: bool = Field(default=False)
+    status: int = Field(default=1)
     transactions: Optional[List["Transaction"]] = Relationship(
         back_populates="creator",
     )

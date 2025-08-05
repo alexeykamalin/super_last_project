@@ -10,6 +10,7 @@ from services.crud.user import create_user, get_all_users, get_user_by_email
 from services.crud.balance import create_balance
 from services.crud.transaction import create_transaction
 from services.crud.prediction import create_prediction
+import hashlib
 
 def get_database_engine():
     """
@@ -52,13 +53,18 @@ def init_db(drop_all: bool = False) -> None:
             SQLModel.metadata.drop_all(engine)
         SQLModel.metadata.create_all(engine)
         paswd = HashPassword().create_hash('Qwerty123!')
-        test_user = User(email='test1@gmail.com', password=paswd, name='Bob')
-        admin = User(email='test1@gmail1.com', password=paswd, name='Alice', is_admin=True)
+        md5_hash = hashlib.md5()
+        md5_hash.update('Иванов Иван Иванович'.encode('utf-8'))
+        name = md5_hash.hexdigest()
+        test_user = User(email='test1@gmail.com', password=paswd, name='Иванов Иван Иванович', hashed_name=name,status=3)
+        admin = User(email='test1@gmail1.com', password=paswd, name='Алексей', is_admin=True, status=1, hashed_name=name)
+        administration = User(email='test1@gmail3.com', password=paswd, name='Administration',status=2, hashed_name=name)
         with Session(engine) as session:
             check = get_user_by_email('test1@gmail.com', session)
             if not check:
                 create_user(test_user, session)
                 create_user(admin, session)
+                create_user(administration, session)
                 balance1 = Balance(value=0, creator=test_user, user_id=test_user.id)
                 balance2 = Balance(value=0, creator=admin, user_id=admin.id)
                 create_balance(balance1, session)

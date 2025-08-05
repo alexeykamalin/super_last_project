@@ -56,48 +56,244 @@
       <div class='main'>
         <div class='row'>
           <div class='col-lg-12 col-sm-12 caption'><b>{{user.name}}</b></div>
-          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Баланс: {% if balance %}{{balance[0]['value']}} {% else %} 0 {% endif %}</div>
-          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Статус: пользователь</div> 
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Статус: обучающийся</div> 
           <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Логин: {{user.email}}</div>
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>Id: {{user.hashed_name}}</div>
         </div>
         <hr>
         <div class='row' style="margin-top: 50px;">
           <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>
-            Данный сервис предназначен для определения наличия автомобиля на картинке. <br/>Для предсказания необходимо, чтоб баланс был выше 500 единиц средств.
+            Данный сервис предназначен для предсказания результата ЕГЭ по математике. <br/>Для предсказания необходимо, заполнить поля ниже.<br/>Укажтите Ваши оценки по предметам, и результат ЕГКР по математике. <br/>После заполнения нажмите кнопку "Предсказать" и получите результат. 
           </div>
         </div>
         <div class='row' style="margin-top: 50px;">
-          <div class='col-lg-6 col-sm-12'>
-            <div class='icon' data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <div class='text_icon'>Пополнить баланс</div>
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Алгебра</div>
             </div>
-          </div>
-          <div class='col-lg-6 col-sm-12'>
-            <a href="/predictions">
-                <div class='icon'>
-                    <div class='text_icon'>Предсказания</div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="a1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">1 триместр</label>
                 </div>
-            </a>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-lg-6 col-sm-12'>
-            <a href="/transactions">
-            <div class='icon'>
-                <div class='text_icon'>История транзакций</div>
-            </div>
-            </a>
-          </div>
-          <div class='col-lg-6 col-sm-12'>
-            <div style="margin: 0 auto; width: 500px;">
-              <form method="POST" action="/api/users/logout">
-                  <button class='btn_logout'>Выход из аккаунта</button>
-              </form>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="a2" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">2 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="a3" placeholder="Оценка за 3 триместр">
+                  <label for="floatingInput">3 триместр</label>
+                </div>
+              </div>
             </div>
           </div>
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Геометрия</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="g1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">1 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="g2" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">2 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="g3" placeholder="Оценка за 3 триместр">
+                  <label for="floatingInput">3 триместр</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <hr>
-      </div>
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Информатика</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="i1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">1 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="i2" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">2 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="i3" placeholder="Оценка за 3 триместр">
+                  <label for="floatingInput">3 триместр</label>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="ia" placeholder="Оценка в аттестате">
+                  <label for="floatingInput">Аттестат</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="ig" placeholder="Оценка за год">
+                  <label for="floatingInput">Годовая</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Физика</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="f1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">1 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="f2" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">2 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="f3" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">3 триместр</label>
+                </div>
+              </div>    
+            </div>
+            <div class="row" style="margin-top: 20px;">
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="fa" placeholder="Оценка в аттестате">
+                  <label for="floatingInput">Аттестат</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="fg" placeholder="Оценка за год">
+                  <label for="floatingInput">Годовая</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Русский язык</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="r1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">1 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="r2" placeholder="Оценка за 2 триместр">
+                  <label for="floatingInput">2 триместр</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="r3" placeholder="Оценка за 3 триместр">
+                  <label for="floatingInput">3 триместр</label>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="ra" placeholder="Оценка в аттестате">
+                  <label for="floatingInput">Аттестат</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="rg" placeholder="Оценка за год">
+                  <label for="floatingInput">Годовая</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='col-lg-6 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Практикумы</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="pri" placeholder="Практикум информатика">
+                  <label for="floatingInput">Информатика</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="prm" placeholder="Практикум математика">
+                  <label for="floatingInput">Математика</label>
+                </div>
+              </div>   
+            </div>
+            <div class="row" style="margin-top: 20px;">
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="prr" placeholder="Практикум русский язык">
+                  <label for="floatingInput">Русский язык</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="prf" placeholder="Практикум физика">
+                  <label for="floatingInput">Физика</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='row' style="margin-top: 50px;">
+          <div class='col-lg-12 col-sm-12 icon1'>
+            <div class="row">
+              <div class="col-lg-12 subcaption1">Результат ЕГКР</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="r1" placeholder="Оценка за 1 триместр">
+                  <label for="floatingInput">Результат в процентах</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='row' style="margin-top: 50px; margin-bottom: 50px;">
+          <div class='col-lg-12 col-sm-12' style='text-align: center; font-size: 20px;'>
+            <button type="button" class="btn btn-primary" id="predict">Предсказать</button>
+          </div>
+        </div>
       {% endif %}
     </body>
     {% if user.is_admin %}
