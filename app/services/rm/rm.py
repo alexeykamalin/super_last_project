@@ -12,8 +12,7 @@ connection_params = pika.ConnectionParameters(
     heartbeat=30,
     blocked_connection_timeout=2
 )
-
-def send_task(message:str,  id: int):
+def send_task(message: str, id: int):
     connection = pika.BlockingConnection(connection_params)
     channel = connection.channel()
     

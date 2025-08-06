@@ -1,9 +1,4 @@
 pika
-transformers
-torch==2.6.0
-torchvision
-accelerate
-qwen_vl_utils
 sqlmodel
 pydantic_settings
 pydantic
@@ -12,3 +7,6 @@ psycopg
 psycopg-binary
 passlib
 fastapi
+xgboost
+pandas
+joblib

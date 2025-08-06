@@ -10,6 +10,7 @@ from services.crud import transaction as TransactionService
 from services.rm import rm as RmTask
 from typing import List, Dict
 import logging
+import json
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -25,6 +26,8 @@ prediction_route = APIRouter()
 async def create_prediction(data: Prediction, session=Depends(get_session)) -> Dict[str, str]:
     """
     """
+    print(f"Received data: {data}")
+    print('lol')
     try:
         prediction = Prediction(
             status='in_progress',
@@ -32,9 +35,11 @@ async def create_prediction(data: Prediction, session=Depends(get_session)) -> D
             a1=data.a1,
             a2=data.a2,
             a3=data.a3,
+            ag=data.ag,
             g1=data.g1,
             g2=data.g2,
             g3=data.g3,
+            gg=data.gg,
             i1=data.i1,
             i2=data.i2,
             i3=data.i3,
@@ -58,35 +63,43 @@ async def create_prediction(data: Prediction, session=Depends(get_session)) -> D
             result='in_progress'
         )
         result = PredictionService.create_prediction(prediction, session)
-        task = RmTask.send_task(data.a1, 
-                                data.a2,
-                                data.a3,
-                                data.g1,
-                                data.g2,
-                                data.g3,
-                                data.i1,
-                                data.i2,
-                                data.i3,
-                                data.ia,
-                                data.ig,
-                                data.f1,
-                                data.f2,
-                                data.f3,
-                                data.fa,
-                                data.fg,
-                                data.r1,
-                                data.r2,
-                                data.r3,
-                                data.ra,
-                                data.rg,
-                                data.pri,
-                                data.prm,
-                                data.prf,
-                                data.prr,
-                                data.egkr,
-                                result.id)
-
-
+        
+        # Создаем словарь с данными для отправки
+        task_data = {
+            'a1': data.a1,
+            'a2': data.a2,
+            'a3': data.a3,
+            'ag': data.ag,
+            'g1': data.g1,
+            'g2': data.g2,
+            'g3': data.g3,
+            'gg': data.gg,
+            'i1': data.i1,
+            'i2': data.i2,
+            'i3': data.i3,
+            'ia': data.ia,
+            'ig': data.ig,
+            'f1': data.f1,
+            'f2': data.f2,
+            'f3': data.f3,
+            'fa': data.fa,
+            'fg': data.fg,
+            'r1': data.r1,
+            'r2': data.r2,
+            'r3': data.r3,
+            'ra': data.ra,
+            'rg': data.rg,
+            'pri': data.pri,
+            'prm': data.prm,
+            'prf': data.prf,
+            'prr': data.prr,
+            'egkr': data.egkr
+        }
+        
+        # Преобразуем словарь в строку JSON для отправки
+        message = json.dumps(task_data)
+        task = RmTask.send_task(message, result.id)
+        
         logger.info(f"New prediction: {data.user_id}, {data.status}, {task}")
         return {"result": "true"}
 
